@@ -10,12 +10,13 @@ public class UFOController : MonoBehaviour
     private Rigidbody2D rb;
     private int count;
 
+    public AudioClip collect;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         count = 0;
-        SetCountText();
-        winText.text = "";
+        SceneManager.Instance.SetCountText(count);
     }
 
     //Update Physics effect before per frame
@@ -33,18 +34,12 @@ public class UFOController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
+            SoundManager.Instance.PlaySound(collect, 7.0f, 8.0f);
             other.gameObject.SetActive(false);
             ++count;
-            SetCountText();
+            SceneManager.Instance.SetCountText(count);
         }
     }
 
-    private void SetCountText()
-    {
-        countText.text = "Count:" + count.ToString();
-        if (count >= 12)
-        {
-            winText.text = "You win!";
-        }
-    }
+
 }
