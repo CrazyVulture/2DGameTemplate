@@ -5,6 +5,7 @@ public class SceneManager : MonoBehaviour
 {
     public Text countText;
     public Text winText;
+    public AudioClip battleMusic;
     public AudioClip winSound;
 
     public static SceneManager Instance=null;
@@ -26,6 +27,7 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         winText.text = "";
+        SoundManager.Instance.PlayMusic(battleMusic,true);
     }
 
     public void SetCountText(int count)
