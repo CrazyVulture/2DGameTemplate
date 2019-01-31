@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: c748315172646ec4c9630a4f4ee5f89f
+guid: 9a98cf9535324f34a83f1ba26f1bcd48
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: wind_0
-    21300002: wind_1
+  fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -42,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,64 +69,13 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: wind_0
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 15
-        width: 219
-        height: 221
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6fcff5604e43ba24e8cf2c4ddac3e0b2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wind_1
-      rect:
-        serializedVersion: 2
-        x: 263
-        y: 5
-        width: 165
-        height: 130
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65a8cc11797fbd941bb0c1e9dd501394
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d2c33f655f6ef404d88bf772a2e16e01
+    spriteID: e6228d4b7e52de04b9455fe14e24d24a
     vertices: []
     indices: 
     edges: []

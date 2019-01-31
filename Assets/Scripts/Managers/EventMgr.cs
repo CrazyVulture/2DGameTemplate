@@ -14,8 +14,13 @@ public class EventMgr : Singleton<EventMgr>
 
     void Update()
     {
+        //Win Event
         if (isWin)
+        {
             WinAction();
+            isWin = false;
+        }
+            
     }
 
     //Game Init
@@ -24,7 +29,7 @@ public class EventMgr : Singleton<EventMgr>
         SoundMgr.Instance.PlayMusic(bgmMusic, true);
     }
 
-    //Win part
+    //Win
     public void Win()
     {
         isWin = true;
@@ -32,6 +37,5 @@ public class EventMgr : Singleton<EventMgr>
     private void WinAction()
     {
         SoundMgr.Instance.PlayMusic(winSound);
-        isWin = false;
     }
 }
