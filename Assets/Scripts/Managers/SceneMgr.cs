@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SceneManager : MonoBehaviour
+public class SceneMgr : MonoBehaviour
 {
     public Text countText;
     public Text winText;
-    public AudioClip battleMusic;
+    public AudioClip bgmMusic;
     public AudioClip winSound;
 
-    public static SceneManager Instance=null;
+    public static SceneMgr Instance=null;
 
     // Initialize the singleton instance.
     private void Awake()
@@ -27,7 +27,7 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         winText.text = "";
-        SoundManager.Instance.PlayMusic(battleMusic,true);
+        SoundMgr.Instance.PlayMusic(bgmMusic,true);
     }
 
     public void SetCountText(int count)
@@ -36,7 +36,7 @@ public class SceneManager : MonoBehaviour
         if (count >= 12)
         {
             winText.text = "You win!";
-            SoundManager.Instance.PlayMusic(winSound);
+            SoundMgr.Instance.PlayMusic(winSound);
         }
             
     }
