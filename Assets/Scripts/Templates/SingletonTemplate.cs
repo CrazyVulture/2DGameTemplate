@@ -8,7 +8,7 @@ public abstract class Singleton<T> : Singleton where T : MonoBehaviour
     private static T _instance;
 
     [NotNull]
-    private static string _instName;
+    private static string _instName=typeof(T).ToString();
 
     [NotNull]
     // ReSharper disable once StaticMemberInGenericType
@@ -79,4 +79,3 @@ public abstract class Singleton : MonoBehaviour
     }
     #endregion
 }
-//Free candy!

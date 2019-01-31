@@ -16,7 +16,7 @@ public class UFOController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         count = 0;
-        SceneMgr.Instance.SetCountText(count);
+        UIMgr.Instance.SetCountText(count);
     }
 
     //Update Physics effect before per frame
@@ -37,7 +37,9 @@ public class UFOController : MonoBehaviour
             SoundMgr.Instance.PlaySound(collect);
             other.gameObject.SetActive(false);
             ++count;
-            SceneMgr.Instance.SetCountText(count);
+            UIMgr.Instance.SetCountText(count);
+            if (count >= 12)
+                EventMgr.Instance.Win();
         }
     }
 }

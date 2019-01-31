@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SoundMgr : MonoBehaviour
+public class SoundMgr : Singleton<SoundMgr>
 {
     // Audio players components.
     public AudioSource SoundSource;
@@ -9,23 +9,6 @@ public class SoundMgr : MonoBehaviour
     // Random pitch adjustment range.
     public float LowPitchRange = .95f;
     public float HighPitchRange = 1.05f;
-
-    // Singleton instance.
-    public static SoundMgr Instance = null;
-
-    // Initialize the singleton instance.
-    private void Awake()
-    {
-        // If there is not already an instance of SoundMgr, set it to this.
-        if (Instance == null)
-            Instance = this;
-        //If an instance already exists, destroy whatever this object is to enforce the singleton.
-        if (Instance != this)
-            Destroy(gameObject);
-
-        //Set SoundMgr to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-        DontDestroyOnLoad(gameObject);
-    }
 
     //play sound
     public void PlaySound(AudioClip clip, bool isLoop = false,float startTime = 0, float endTime = 0)
