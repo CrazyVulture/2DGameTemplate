@@ -3,31 +3,24 @@
 public class PlayerController : MonoBehaviour
 {
     //Speed
-    private Rigidbody2D rb;
-    public float speed = 10;
+    Rigidbody2D rb;
+    public float speed = 10f;
 
-    //Player direction
+    //Have direction set?
     public bool hasDir = true;
-    public enum FACEDIR
-    {
-        DOWN=0,
-        RIGHT,
-        UP,
-        LEFT
-    };
-    private FACEDIR faceDir = FACEDIR.DOWN;
 
     //Animation
     Animator playerAnim;
+    float lastX, lastY;
 
     //Collect action
-    private int count;
+    int count;
     public AudioClip collect;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         count = 0;
         UIMgr.Instance.SetCountText(count);
     }
@@ -35,60 +28,68 @@ public class PlayerController : MonoBehaviour
     //Update Physics effect before per frame
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        playerAnim.SetFloat("SpeedY", Mathf.Abs(moveVertical));
-        playerAnim.SetFloat("SpeedX", Mathf.Abs(moveHorizontal));
-
-        Vector2 movement = new Vector2(moveHorizontal,moveVertical);
-
-        if (hasDir)
-        {
-            rb.velocity = movement * speed;
-            if (moveHorizontal > 0)
-                faceDir = FACEDIR.RIGHT;
-            if (moveHorizontal < 0)
-                faceDir = FACEDIR.LEFT;
-            if (moveVertical > 0)
-                faceDir = FACEDIR.UP;
-            if (moveVertical < 0)
-                faceDir = FACEDIR.DOWN;
-            ChangeDir();
-        }
-        else
-            rb.AddForce(movement * speed);
+        Move();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            SoundMgr.Instance.PlaySound(collect);
-            other.gameObject.SetActive(false);
-            ++count;
-            UIMgr.Instance.SetCountText(count);
-            if (count >= 12)
-                EventMgr.Instance.Win();
+            PickUp(other);
         }
     }
 
-    void ChangeDir()
+    void Move()
     {
-        switch (faceDir)
+        if (hasDir)
         {
-            case FACEDIR.DOWN:
-                playerAnim.SetInteger("Direction", 0);
-                break;
-            case FACEDIR.RIGHT:
-                playerAnim.SetInteger("Direction", 1);
-                break;
-            case FACEDIR.UP:
-                playerAnim.SetInteger("Direction", 2);
-                break;
-            case FACEDIR.LEFT:
-                playerAnim.SetInteger("Direction", 3);
-                break;
+            Vector3 rightMove = Vector3.right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
+            Vector3 upMove = Vector3.up * speed * Time.deltaTime * Input.GetAxis("Vertical");
+            Vector3 heading = Vector3.Normalize(rightMove + upMove);
+
+            Vector2 movement = new Vector2(rightMove.x + upMove.x, rightMove.y + upMove.y);
+
+            rb.velocity = movement*speed*5.0f;
+
+            UpdateAnimation(heading);
+        }
+        else
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+            Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+            rb.AddForce(movement * speed);
         }
     }
 
+    void PickUp(Collider2D other)
+    {
+        SoundMgr.Instance.PlaySound(collect);
+        other.gameObject.SetActive(false);
+        count++;
+        UIMgr.Instance.SetCountText(count);
+        if (count >= 12)
+            EventMgr.Instance.Win();
+    }
+
+    void UpdateAnimation(Vector3 dir)
+    {
+        //Play Idle
+        if (dir.x==0 && dir.y==0)
+        {
+            playerAnim.SetFloat("LastDirX", lastX);
+            playerAnim.SetFloat("LastDirY", lastY);
+            playerAnim.SetBool("Movement", false);
+        }
+        //Play move
+        else
+        {
+            lastX = dir.x;
+            lastY = dir.y;
+            playerAnim.SetBool("Movement", true);
+        }
+
+        playerAnim.SetFloat("DirX", dir.x);
+        playerAnim.SetFloat("DirY", dir.y);
+    }
 }
