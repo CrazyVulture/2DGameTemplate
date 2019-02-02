@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class CharaController : MonoBehaviour
 {
     //Speed
     Rigidbody2D rb;
@@ -13,30 +13,17 @@ public class PlayerController : MonoBehaviour
     Animator playerAnim;
     float lastX, lastY;
 
-    //Collect action
-    int count;
-    public AudioClip collect;
-
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        count = 0;
-        UIMgr.Instance.SetCountText(count);
+        
     }
 
     //Update Physics effect before per frame
     void FixedUpdate()
     {
         Move();
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("PickUp"))
-        {
-            PickUp(other);
-        }
     }
 
     void Move()
@@ -60,16 +47,6 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
             rb.AddForce(movement * speed);
         }
-    }
-
-    void PickUp(Collider2D other)
-    {
-        SoundMgr.Instance.PlaySound(collect);
-        other.gameObject.SetActive(false);
-        count++;
-        UIMgr.Instance.SetCountText(count);
-        if (count >= 12)
-            EventMgr.Instance.Win();
     }
 
     void UpdateAnimation(Vector3 dir)

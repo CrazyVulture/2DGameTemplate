@@ -11,18 +11,20 @@ public class UIMgr : Singleton<UIMgr>
     }
 
     //UI Init
-    private void UIInit()
+    void UIInit()
     {
         winText.text = "";
     }
 
-    public void SetCountText(int count)
+    public void SetCountText(int score)
     {
-        countText.text = "Count:" + count.ToString();
-        if (count >= 12)
-        {
-            winText.text = "You win!";
-        }
+        countText.text = "Score:" + score.ToString();
+    }
+
+    public void SetWinText()
+    {
+        winText.text = "You win!";
+        EventMgr.Instance.Win();
     }
 
 }
