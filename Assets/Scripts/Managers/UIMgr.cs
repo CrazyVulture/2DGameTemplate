@@ -1,9 +1,9 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIMgr : Singleton<UIMgr>
 {
-    public Text countText;
-    public Text winText;
+    public Text scoreText;
 
     void Start()
     {
@@ -13,18 +13,25 @@ public class UIMgr : Singleton<UIMgr>
     //UI Init
     void UIInit()
     {
-        winText.text = "";
+
     }
 
     public void SetCountText(int score)
     {
-        countText.text = "Score:" + score.ToString();
+        scoreText.text = "Score:" + score.ToString();
     }
 
     public void SetWinText()
     {
-        winText.text = "You win!";
         EventMgr.Instance.Win();
+    }
+
+    public float GetScreenWidthRange(Transform targetObj)
+    {
+        Vector3 border = new Vector3(Screen.width, Screen.height, 0.0f);
+        float objWidth = targetObj.GetComponent<SpriteRenderer>().bounds.extents.x;
+        float screenWidth = Camera.main.ScreenToWorldPoint(border).x - objWidth;
+        return screenWidth;
     }
 
 }

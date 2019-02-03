@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
+
 public class EventMgr : Singleton<EventMgr>
 {
     public AudioClip bgmMusic;
-    public AudioClip winSound;
-
-    private bool isWin=false;
+    bool isWin = false;
+    public AudioClip winSound; 
 
     void Start()
     {
@@ -20,12 +20,12 @@ public class EventMgr : Singleton<EventMgr>
             WinAction();
             isWin = false;
         }
-            
     }
 
     //Game Init
     private void GameInit()
     {
+        //Play bgm
         SoundMgr.Instance.PlayMusic(bgmMusic, true);
     }
 
@@ -38,4 +38,5 @@ public class EventMgr : Singleton<EventMgr>
     {
         SoundMgr.Instance.PlayMusic(winSound);
     }
+    
 }

@@ -2,28 +2,17 @@
 
 public class HatController : MonoBehaviour
 {
-    public Camera cam;
+    
     public float speed = 1;
 
     Rigidbody2D rb;
 
-    float maxWidth;
+    float hatRange;
 
     void Start()
     {
-        if (cam==null)
-            cam = Camera.main;
-
         rb = GetComponent<Rigidbody2D>();
-
-        //Set Max Width
-        {
-            Vector3 border = new Vector3(Screen.width, Screen.height, 0.0f);
-            var hatFront = transform.Find("HatFront");
-            float hatWidth = hatFront.GetComponent<SpriteRenderer>().bounds.extents.x;
-            maxWidth = cam.ScreenToWorldPoint(border).x - hatWidth;
-        }
-
+        hatRange = UIMgr.Instance.GetScreenWidthRange(transform.Find("HatFront"));
     }
 
     void FixedUpdate()
@@ -33,9 +22,8 @@ public class HatController : MonoBehaviour
 
     void Move()
     {
-        Vector3 rawPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        float widthRange = Mathf.Clamp(rawPos.x, -maxWidth, maxWidth);
-        Vector3 targetPos = new Vector3(widthRange * speed, 0.0f, 0.0f);
+        var mouseRange = Mathf.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, -hatRange, hatRange);
+        Vector3 targetPos = new Vector3(mouseRange * speed, 0.0f, 0.0f);
         rb.MovePosition(targetPos);
     }
 }
