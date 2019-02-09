@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class UIMgr : Singleton<UIMgr>
 {
     public Text scoreText;
+
+    [CanBeNull]
+    public Text timerText;
 
     void Start()
     {
@@ -13,12 +17,17 @@ public class UIMgr : Singleton<UIMgr>
     //UI Init
     void UIInit()
     {
-
+        
     }
 
     public void SetCountText(int score)
     {
-        scoreText.text = "Score:" + score.ToString();
+        scoreText.text = "Score: " + score;
+    }
+
+    public void SetTimeText(int time)
+    { 
+        timerText.text="Time: "+time;
     }
 
     public void SetWinText()

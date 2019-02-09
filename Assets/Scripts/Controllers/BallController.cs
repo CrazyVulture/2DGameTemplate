@@ -4,22 +4,28 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public GameObject ball;
-    public float startTime=2.0f;
-    public float minTime = 1.0f;
-    public float maxTime = 2.0f;
 
     float ballRange;
+
+    public float timeLeft;
 
     void Start()
     {
         ballRange = UIMgr.Instance.GetScreenWidthRange(ball.transform);
+        UpdateText();
         StartCoroutine(Spawn());
+    }
+
+    void FixedUpdate()
+    {
+        timeLeft-=Time.deltaTime;
+        UpdateText(); 
     }
 
     IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(startTime);
-        while (true)
+        yield return new WaitForSeconds(2.0f);
+        while (timeLeft>0)
         {
             Vector3 position = new Vector3(
                                 Random.Range(-ballRange, ballRange),
@@ -28,8 +34,15 @@ public class BallController : MonoBehaviour
 
             Quaternion rotation = Quaternion.identity;
             Instantiate(ball, position, rotation);
-            yield return new WaitForSeconds(Random.Range(minTime, maxTime));
+            yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
+    }
+
+    void UpdateText()
+    {
+        if (timeLeft<0)
+            timeLeft=0;  
+        UIMgr.Instance.SetTimeText(Mathf.RoundToInt(timeLeft));
     }
 
 }
