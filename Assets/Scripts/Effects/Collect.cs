@@ -7,7 +7,7 @@ public class Collect : MonoBehaviour
 
     void Start()
     {
-         UIMgr.Instance.SetCountText(score);
+         UIMgr.Instance.SetScoreText(score);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -17,7 +17,7 @@ public class Collect : MonoBehaviour
             SoundMgr.Instance.PlaySound(collect);
             other.gameObject.SetActive(false);
             score += 100;
-            UIMgr.Instance.SetCountText(score);
+            UIMgr.Instance.SetScoreText(score);
             if (score >= 1200)
                 UIMgr.Instance.SetWinText();
         }

@@ -19,7 +19,7 @@ public class BallController : MonoBehaviour
     void FixedUpdate()
     {
         timeLeft-=Time.deltaTime;
-        UpdateText(); 
+        UpdateText();
     }
 
     IEnumerator Spawn()
@@ -36,12 +36,17 @@ public class BallController : MonoBehaviour
             Instantiate(ball, position, rotation);
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
+        yield return new WaitForSeconds(2.0f);
+        UIMgr.Instance.ShowGameOver();
+        yield return new WaitForSeconds(2.0f);
+        UIMgr.Instance.ShowRestart();
     }
 
     void UpdateText()
     {
         if (timeLeft<0)
-            timeLeft=0;  
+            timeLeft = 0;
+
         UIMgr.Instance.SetTimeText(Mathf.RoundToInt(timeLeft));
     }
 

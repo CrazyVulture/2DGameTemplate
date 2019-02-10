@@ -5,7 +5,7 @@ public class EventMgr : Singleton<EventMgr>
 {
     public AudioClip bgmMusic;
     bool isWin = false;
-    public AudioClip winSound; 
+    public AudioClip winSound;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class EventMgr : Singleton<EventMgr>
         //Win Event
         if (isWin)
         {
-            WinAction();
+            SoundMgr.Instance.PlaySound(winSound);
             isWin = false;
         }
     }
@@ -33,10 +33,6 @@ public class EventMgr : Singleton<EventMgr>
     public void Win()
     {
         isWin = true;
-    }
-    private void WinAction()
-    {
-        SoundMgr.Instance.PlayMusic(winSound);
     }
     
 }

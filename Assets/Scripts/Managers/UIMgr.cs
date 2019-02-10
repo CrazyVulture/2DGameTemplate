@@ -1,26 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using JetBrains.Annotations;
 
 public class UIMgr : Singleton<UIMgr>
 {
+    [NotNull]
     public Text scoreText;
 
-    [CanBeNull]
+    [NotNull]
     public Text timerText;
 
-    void Start()
-    {
-        UIInit();
-    }
+    [NotNull]
+    public GameObject gameOverText;
 
-    //UI Init
-    void UIInit()
-    {
-        
-    }
+    [NotNull]
+    public GameObject RestartBtn;
 
-    public void SetCountText(int score)
+    public void SetScoreText(int score)
     {
         scoreText.text = "Score: " + score;
     }
@@ -35,12 +32,28 @@ public class UIMgr : Singleton<UIMgr>
         EventMgr.Instance.Win();
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(GameObject.FindGameObjectWithTag("Manager"));
+    }
+
     public float GetScreenWidthRange(Transform targetObj)
     {
         Vector3 border = new Vector3(Screen.width, Screen.height, 0.0f);
         float objWidth = targetObj.GetComponent<SpriteRenderer>().bounds.extents.x;
         float screenWidth = Camera.main.ScreenToWorldPoint(border).x - objWidth;
         return screenWidth;
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverText.SetActive(true);
+    }
+
+    public void ShowRestart()
+    {
+        RestartBtn.SetActive(true);
     }
 
 }
