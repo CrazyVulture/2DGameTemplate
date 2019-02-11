@@ -46,14 +46,12 @@ public class UIMgr : Singleton<UIMgr>
         return screenWidth;
     }
 
-    public void ShowGameOver()
+    public void ShowGameOver(bool isRestart)
     {
-        gameOverText.SetActive(true);
-    }
-
-    public void ShowRestart()
-    {
-        RestartBtn.SetActive(true);
+        if (isRestart)
+            RestartBtn.SetActive(true);
+        else
+            gameOverText.SetActive(true);
     }
 
 }

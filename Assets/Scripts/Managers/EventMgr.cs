@@ -17,13 +17,13 @@ public class EventMgr : Singleton<EventMgr>
         //Win Event
         if (isWin)
         {
-            SoundMgr.Instance.PlaySound(winSound);
+            SoundMgr.Instance.PlayMusic(winSound);
             isWin = false;
         }
     }
 
     //Game Init
-    private void GameInit()
+    void GameInit()
     {
         //Play bgm
         SoundMgr.Instance.PlayMusic(bgmMusic, true);

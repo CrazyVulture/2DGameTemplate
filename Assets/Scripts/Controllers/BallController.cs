@@ -37,9 +37,9 @@ public class BallController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
         yield return new WaitForSeconds(2.0f);
-        UIMgr.Instance.ShowGameOver();
+        UIMgr.Instance.ShowGameOver(false);
         yield return new WaitForSeconds(2.0f);
-        UIMgr.Instance.ShowRestart();
+        UIMgr.Instance.ShowGameOver(true);
     }
 
     void UpdateText()
