@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 using JetBrains.Annotations;
 
 public class UIMgr : Singleton<UIMgr>
@@ -17,6 +17,12 @@ public class UIMgr : Singleton<UIMgr>
     [NotNull]
     public GameObject RestartBtn;
 
+    [NotNull]
+    public GameObject SplashImg;
+
+    [NotNull]
+    public GameObject StartBtn;
+
     public void SetScoreText(int score)
     {
         scoreText.text = "Score: " + score;
@@ -29,13 +35,7 @@ public class UIMgr : Singleton<UIMgr>
 
     public void SetWinText()
     {
-        EventMgr.Instance.Win();
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Destroy(GameObject.FindGameObjectWithTag("Manager"));
+        EventMgr.Instance.WinGame();
     }
 
     public float GetScreenWidthRange(Transform targetObj)
@@ -54,4 +54,9 @@ public class UIMgr : Singleton<UIMgr>
             gameOverText.SetActive(true);
     }
 
+    public void StartGameUI()
+    {
+        SplashImg.SetActive(false);
+        StartBtn.SetActive(false);
+    }
 }

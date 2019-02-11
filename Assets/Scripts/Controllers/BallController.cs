@@ -4,36 +4,39 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public GameObject ball;
+    public GameObject bomb;
 
     float ballRange;
+    float bombRange;
 
     public float timeLeft;
 
+    bool isStart;
+
     void Start()
     {
+        isStart = false;
         ballRange = UIMgr.Instance.GetScreenWidthRange(ball.transform);
+        bombRange = UIMgr.Instance.GetScreenWidthRange(bomb.transform);
         UpdateText();
-        StartCoroutine(Spawn());
     }
 
     void FixedUpdate()
     {
-        timeLeft-=Time.deltaTime;
-        UpdateText();
+        if (isStart)
+        {
+            timeLeft -= Time.deltaTime;
+            UpdateText();
+        }
     }
 
-    IEnumerator Spawn()
+    public IEnumerator Spawn()
     {
         yield return new WaitForSeconds(2.0f);
+        isStart = true;
         while (timeLeft>0)
         {
-            Vector3 position = new Vector3(
-                                Random.Range(-ballRange, ballRange),
-                                transform.position.y,
-                                0.0f);
-
-            Quaternion rotation = Quaternion.identity;
-            Instantiate(ball, position, rotation);
+            SpawnItems(true);
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
         yield return new WaitForSeconds(2.0f);
@@ -50,4 +53,26 @@ public class BallController : MonoBehaviour
         UIMgr.Instance.SetTimeText(Mathf.RoundToInt(timeLeft));
     }
 
+    void SpawnItems(bool isBomb=false)
+    {
+        Quaternion rotation = Quaternion.identity;
+        if (isBomb)
+        {
+            Vector3 position = new Vector3(
+                                   Random.Range(-bombRange, bombRange),
+                                   transform.position.y,
+                                   0.0f);
+            Instantiate(bomb, position, rotation);
+
+        }
+        else
+        {
+            Vector3 position = new Vector3(
+                                Random.Range(-ballRange, ballRange),
+                                transform.position.y,
+                                0.0f);
+            Instantiate(ball, position, rotation);
+        }
+            
+    }
 }

@@ -4,12 +4,16 @@ public class Explode : MonoBehaviour
 {
     public GameObject explosion;
 
-    void Update()
+    public AudioClip explodeSound;
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (Input.GetButtonDown("Jump"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            gameObject.SetActive(false);
+            Instantiate(explosion, transform.position, transform.rotation);
+            SoundMgr.Instance.PlaySound(explodeSound);
+            Destroy(gameObject);
         }
     }
+
 }
