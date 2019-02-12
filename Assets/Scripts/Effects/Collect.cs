@@ -22,4 +22,13 @@ public class Collect : MonoBehaviour
                 UIMgr.Instance.SetWinText();
         }
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Bomb"))
+        {
+            score -= 200;
+            UIMgr.Instance.SetScoreText(score);
+        }
+    }
 }

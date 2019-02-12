@@ -8,7 +8,7 @@ public class SelfDestruct : MonoBehaviour
     public bool hasAnimation=false;
 
     [CanBeNull]
-    public new AnimationClip animation;
+    public AnimationClip animation;
 
     void Start()
     {
