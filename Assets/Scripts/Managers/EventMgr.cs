@@ -16,7 +16,7 @@ public class EventMgr : Singleton<EventMgr>
 
     void Start()
     {
-        isStart = isWin = isRestart = isLose = false;
+        isStart = isWin = isRestart = isLose = isQuit = false;
     }
 
     void Update()
