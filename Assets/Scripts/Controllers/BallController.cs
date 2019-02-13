@@ -9,7 +9,7 @@ public class BallController : MonoBehaviour
 
     public float timeLeft;
 
-    bool isStart;
+    public bool isStart { get; private set; }
 
     void Start()
     {
@@ -23,6 +23,8 @@ public class BallController : MonoBehaviour
         if (isStart)
         {
             timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+                timeLeft = 0;
             UpdateText();
         }
     }
@@ -37,16 +39,14 @@ public class BallController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
         yield return new WaitForSeconds(2.0f);
-        UIMgr.Instance.ShowGameOver(false);
-        yield return new WaitForSeconds(2.0f);
-        UIMgr.Instance.ShowGameOver(true);
+        if (UIMgr.Instance.score > 0)
+            EventMgr.Instance.WinGame();
+        else
+            EventMgr.Instance.LoseGame();
     }
 
     void UpdateText()
     {
-        if (timeLeft<0)
-            timeLeft = 0;
-
         UIMgr.Instance.SetTimeText(Mathf.RoundToInt(timeLeft));
     }
 

@@ -13,17 +13,20 @@ public class CharaController : MonoBehaviour
     Animator playerAnim;
     float lastX, lastY;
 
+    bool canMove;
+
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        
+        canMove = false;
     }
 
     //Update Physics effect before per frame
     void FixedUpdate()
     {
-        Move();
+        if (canMove)
+            Move();
     }
 
     void Move()
@@ -68,5 +71,16 @@ public class CharaController : MonoBehaviour
 
         playerAnim.SetFloat("DirX", dir.x);
         playerAnim.SetFloat("DirY", dir.y);
+    }
+
+    public void ToggleControl(bool toggle)
+    {
+        canMove = toggle;
+    }
+
+    public void StayInPos()
+    {
+        rb.velocity = new Vector2(0.0f,0.0f);
+        UpdateAnimation(new Vector3(0.0f, 0.0f, 0.0f));
     }
 }

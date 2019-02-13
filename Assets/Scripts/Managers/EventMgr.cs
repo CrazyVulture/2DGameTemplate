@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EventMgr : Singleton<EventMgr>
 {
-    bool isStart;
-    public BallController ballController;
-    public HatController hatController;
+    public bool isStart { get;private set; }
+    bool isWin;
+    bool isRestart;
+    bool isQuit;
+    bool isLose;
+
+    public GameController gameController;
 
     public AudioClip bgmMusic;
-
-    bool isWin;
     public AudioClip winSound;
-
-    bool isRestart;
+    public AudioClip loseSound;
 
     void Start()
     {
-        GameInit();
+        isStart = isWin = isRestart = isLose = false;
     }
 
     void Update()
@@ -24,40 +24,42 @@ public class EventMgr : Singleton<EventMgr>
         //Start
         if (isStart)
         {
-            UIMgr.Instance.StartGameUI();
-            hatController.ToggleControl(true);
+            SoundMgr.Instance.PlayMusic(bgmMusic, true);
+            gameController.StartGame();
             isStart = false;
         }
         //Win
         if (isWin)
         {
             SoundMgr.Instance.PlayMusic(winSound);
+            gameController.EndGame(true);
             isWin = false;
+        }
+        //Lose
+        if (isLose)
+        {
+            SoundMgr.Instance.PlayMusic(loseSound);
+            gameController.EndGame(false);
+            isLose = false;
         }
         //Restart
         if (isRestart)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            Destroy(GameObject.FindGameObjectWithTag("Manager"));
+            gameController.RestartGame();
             isRestart = false;
         }
-    }
-
-    //Game Init
-    void GameInit()
-    {
-        isStart = false;
-        isWin = false;
-        isRestart = false;
-        //Play bgm
-        SoundMgr.Instance.PlayMusic(bgmMusic, true);
+        //Quit
+        if (isQuit)
+        {
+            gameController.QuitGame();
+            isQuit = false;
+        }
     }
 
     //Start
     public void StartGame()
     {
         isStart = true;
-        StartCoroutine(ballController.Spawn());
     }
 
     //Win
@@ -66,10 +68,27 @@ public class EventMgr : Singleton<EventMgr>
         isWin = true;
     }
 
+    //Lose
+    public void LoseGame()
+    {
+        isLose = true;
+    }
+
     //Restart
     public void RestartGame()
     {
         isRestart = true;
+    }
+
+    //Quit
+    public void QuitGame()
+    {
+        isQuit = true;
+    }
+
+    public GameController.GAMETYPE GetGameType()
+    {
+        return gameController.gameType;
     }
 
 }

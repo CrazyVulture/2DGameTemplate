@@ -1,30 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 using JetBrains.Annotations;
 
 public class UIMgr : Singleton<UIMgr>
 {
-    [NotNull]
     public Text scoreText;
 
-    [NotNull]
+    [HideInInspector]
+    public int score = 0;
+
+    [CanBeNull]
     public Text timerText;
 
-    [NotNull]
+    public Text overText;
+
     public GameObject gameOverText;
 
-    [NotNull]
     public GameObject RestartBtn;
 
-    [NotNull]
+    public GameObject QuitBtn;
+
     public GameObject SplashImg;
 
-    [NotNull]
     public GameObject StartBtn;
 
-    public void SetScoreText(int score)
+    void Start()
     {
+        scoreText.text = "Score: " + score;
+    }
+
+    public void AddScore(int deltaScore)
+    {
+        score += deltaScore;
         scoreText.text = "Score: " + score;
     }
 
@@ -33,9 +40,9 @@ public class UIMgr : Singleton<UIMgr>
         timerText.text="Time: "+time;
     }
 
-    public void SetWinText()
+    public void SetGameOverText(string text)
     {
-        EventMgr.Instance.WinGame();
+        overText.text = text;
     }
 
     public float GetScreenWidthRange(Transform targetObj)
@@ -46,12 +53,11 @@ public class UIMgr : Singleton<UIMgr>
         return screenWidth;
     }
 
-    public void ShowGameOver(bool isRestart)
+    public void ShowGameOver()
     {
-        if (isRestart)
-            RestartBtn.SetActive(true);
-        else
-            gameOverText.SetActive(true);
+        gameOverText.SetActive(true);
+        RestartBtn.SetActive(true);
+        QuitBtn.SetActive(true);
     }
 
     public void StartGameUI()
