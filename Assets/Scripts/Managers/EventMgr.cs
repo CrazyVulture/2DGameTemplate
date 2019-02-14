@@ -8,6 +8,9 @@ public class EventMgr : Singleton<EventMgr>
     bool isQuit;
     bool isLose;
 
+    [HideInInspector]
+    public bool HitBomb;
+
     public GameController gameController;
 
     public AudioClip bgmMusic;
@@ -56,39 +59,28 @@ public class EventMgr : Singleton<EventMgr>
         }
     }
 
-    //Start
     public void StartGame()
     {
         isStart = true;
     }
 
-    //Win
     public void WinGame()
     {
         isWin = true;
     }
 
-    //Lose
     public void LoseGame()
     {
         isLose = true;
     }
 
-    //Restart
     public void RestartGame()
     {
         isRestart = true;
     }
 
-    //Quit
     public void QuitGame()
     {
         isQuit = true;
     }
-
-    public GameController.GAMETYPE GetGameType()
-    {
-        return gameController.gameType;
-    }
-
 }

@@ -17,6 +17,15 @@ public class HatController : MonoBehaviour
         canMove = false;
     }
 
+    void Update()
+    {
+        if (EventMgr.Instance.HitBomb)
+        {
+            EventMgr.Instance.HitBomb = false;
+            UIMgr.Instance.AddScore(-200);
+        }
+    }
+
     void FixedUpdate()
     {
         if (canMove)

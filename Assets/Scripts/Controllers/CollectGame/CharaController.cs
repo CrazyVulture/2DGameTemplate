@@ -22,6 +22,21 @@ public class CharaController : MonoBehaviour
         canMove = false;
     }
 
+    void Update()
+    {
+        if (UIMgr.Instance.score >= 1200)
+        {
+            EventMgr.Instance.WinGame();
+            Destroy(GameObject.FindGameObjectWithTag("GameEnd"));
+        }
+        if (EventMgr.Instance.HitBomb)
+        {
+            EventMgr.Instance.HitBomb = false;
+            EventMgr.Instance.LoseGame();
+            Destroy(GameObject.FindGameObjectWithTag("GameEnd"));
+        }
+    }
+
     //Update Physics effect before per frame
     void FixedUpdate()
     {
