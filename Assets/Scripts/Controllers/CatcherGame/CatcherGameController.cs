@@ -4,7 +4,7 @@ public class CatcherGameController : GameController
 
     public BallController ballController;
 
-    public HatController hatController;
+    public HatPlayerController hatController;
 
     public override void StartGame()
     {

@@ -1,25 +1,15 @@
 ﻿using UnityEngine;
 
-public class CharaController : MonoBehaviour
+public class CharaPlayerController : PlayerController
 {
-    //Speed
-    Rigidbody2D rb;
-    public float speed = 10f;
-
-    //Have direction set?
-    public bool hasDir = true;
-
     //Animation
     Animator playerAnim;
     float lastX, lastY;
 
-    bool canMove;
-
     void Start()
     {
         playerAnim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        canMove = false;
+        base.Init();
     }
 
     void Update()
@@ -86,11 +76,6 @@ public class CharaController : MonoBehaviour
 
         playerAnim.SetFloat("DirX", dir.x);
         playerAnim.SetFloat("DirY", dir.y);
-    }
-
-    public void ToggleControl(bool toggle)
-    {
-        canMove = toggle;
     }
 
     public void StayInPos()

@@ -1,7 +1,7 @@
 ﻿
 public class CollectGameController : GameController
 {
-    public CharaController charaController;
+    public CharaPlayerController charaController;
 
     public override void StartGame()
     {

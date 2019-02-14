@@ -1,20 +1,13 @@
 ﻿using UnityEngine;
 
-public class HatController : MonoBehaviour
+public class HatPlayerController : PlayerController
 {
-    public float speed = 1;
-
-    Rigidbody2D rb;
-
     float hatRange;
-
-    bool canMove;
-
+    
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        base.Init();
         hatRange = UIMgr.Instance.GetScreenWidthRange(transform.Find("HatFront"));
-        canMove = false;
     }
 
     void Update()
@@ -39,8 +32,4 @@ public class HatController : MonoBehaviour
         rb.MovePosition(targetPos);
     }
 
-    public void ToggleControl(bool toggle)
-    {
-        canMove = toggle;
-    }
 }
