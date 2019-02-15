@@ -1,16 +1,13 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-public abstract class PlayerController : MonoBehaviour
+public abstract class BaseController : MonoBehaviour
 {
-    //Speed
-    public float speed;
     protected Rigidbody2D rb;
 
     //Move 
     protected bool canMove;
-
-    //Have direction set?
-    public bool hasDir = true;
+    public float speed;
 
     protected virtual void Init()
     {

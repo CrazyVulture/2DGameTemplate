@@ -2,7 +2,7 @@
 public class CatcherGameController : GameController
 {
 
-    public BallController ballController;
+    public BallSpawner ballSpawner;
 
     public HatPlayerController hatController;
 
@@ -10,7 +10,7 @@ public class CatcherGameController : GameController
     {
         base.StartGame();
         hatController.ToggleControl(true);
-        StartCoroutine(ballController.Spawn());
+        StartCoroutine(ballSpawner.Spawn());
     }
 
     public override void EndGame(bool isWin)

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BallController : MonoBehaviour
+public class BallSpawner : MonoBehaviour
 {
     public GameObject[] balls;
 

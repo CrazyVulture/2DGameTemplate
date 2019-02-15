@@ -8,8 +8,8 @@ public class CharaPlayerController : PlayerController
 
     void Start()
     {
-        playerAnim = GetComponent<Animator>();
         base.Init();
+        playerAnim = GetComponent<Animator>();
     }
 
     void Update()
