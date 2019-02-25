@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BallSpawner : MonoBehaviour
+public class BallSpawner :BaseSpawner
 {
-    public GameObject[] balls;
-
     float ballRange;
 
     public float timeLeft;
@@ -14,7 +12,7 @@ public class BallSpawner : MonoBehaviour
     void Start()
     {
         isStart = false;
-        ballRange = UIMgr.Instance.GetScreenWidthRange(balls[0].transform);
+        ballRange = UIMgr.Instance.GetScreenWidthRange(spawnObjects[0].transform);
         UpdateText();
     }
 
@@ -36,7 +34,7 @@ public class BallSpawner : MonoBehaviour
         while (timeLeft>0)
         {
             SpawnItems();
-            yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+            yield return new WaitForSeconds(Random.Range(1.0f, spawnInterval));
         }
         yield return new WaitForSeconds(2.0f);
         if (UIMgr.Instance.score > 0)
@@ -52,12 +50,12 @@ public class BallSpawner : MonoBehaviour
 
     void SpawnItems()
     {
-        GameObject ball = balls[Random.Range(0,balls.Length)];
-        Quaternion rotation = Quaternion.identity;
-        Vector3 position = new Vector3(
+        GameObject ball = spawnObjects[Random.Range(0, spawnObjects.Length)];
+        spawnRotation = Quaternion.identity;
+        spawnPosition = new Vector3(
                             Random.Range(-ballRange, ballRange),
                             transform.position.y,
                             0.0f);
-        Instantiate(ball, position, rotation);  
+        Instantiate(ball, spawnPosition, spawnRotation);  
     }
 }
