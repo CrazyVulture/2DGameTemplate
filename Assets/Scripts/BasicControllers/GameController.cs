@@ -9,7 +9,6 @@ public abstract class GameController : MonoBehaviour
 
     public virtual void StartGame()
     {
-        UIMgr.Instance.StartGameUI();
         SoundMgr.Instance.PlayMusic(bgmMusic, true);
     }
 

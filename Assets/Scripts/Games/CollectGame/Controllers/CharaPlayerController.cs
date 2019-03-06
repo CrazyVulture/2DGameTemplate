@@ -3,13 +3,12 @@
 public class CharaPlayerController : PlayerController
 {
     //Animation
-    Animator playerAnim;
+    
     float lastX, lastY;
 
     void Start()
     {
         base.Init();
-        playerAnim = GetComponent<Animator>();
     }
 
     void Update()

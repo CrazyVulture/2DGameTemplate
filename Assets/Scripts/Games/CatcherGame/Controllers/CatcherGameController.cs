@@ -9,6 +9,7 @@ public class CatcherGameController : GameController
     public override void StartGame()
     {
         base.StartGame();
+        UIMgr.Instance.StartGameUI();
         hatController.ToggleControl(true);
         StartCoroutine(ballSpawner.Spawn());
     }

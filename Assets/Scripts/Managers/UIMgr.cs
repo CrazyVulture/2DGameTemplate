@@ -9,7 +9,6 @@ public class UIMgr : Singleton<UIMgr>
     [HideInInspector]
     public int score = 0;
 
-    [CanBeNull]
     public Text timerText;
 
     public Text overText;

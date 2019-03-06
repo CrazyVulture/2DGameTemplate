@@ -6,6 +6,7 @@ public class CollectGameController : GameController
     public override void StartGame()
     {
         base.StartGame();
+        UIMgr.Instance.StartGameUI();
         charaController.ToggleControl(true);
     }
 
