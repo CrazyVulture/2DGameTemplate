@@ -23,11 +23,6 @@ public class UIMgr : Singleton<UIMgr>
 
     public GameObject StartBtn;
 
-    void Start()
-    {
-        scoreText.text = "Score: " + score;
-    }
-
     public void AddScore(int deltaScore)
     {
         score += deltaScore;

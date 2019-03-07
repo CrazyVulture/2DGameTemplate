@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class RoguePlayerController : PlayerController
 {
-    void Start()
+    void Awake()
     {
-        EventMgr.Instance.StartGame();
+
     }
 
     
