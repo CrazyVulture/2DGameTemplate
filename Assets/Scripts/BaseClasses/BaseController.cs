@@ -7,7 +7,6 @@ public abstract class BaseController : MonoBehaviour
 
     //Move 
     protected bool canMove;
-    public float speed;
 
     protected virtual void Init()
     {
@@ -19,4 +18,5 @@ public abstract class BaseController : MonoBehaviour
     {
         canMove = toggle;
     }
+
 }

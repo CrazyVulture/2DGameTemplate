@@ -8,7 +8,7 @@ public class CharaPlayerController : PlayerController
 
     void Start()
     {
-        base.Init();
+        Init();
     }
 
     void Update()
@@ -35,10 +35,11 @@ public class CharaPlayerController : PlayerController
 
     void Move()
     {
+        GetNormalAxis();
         if (hasDir)
         {
-            Vector3 rightMove = Vector3.right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
-            Vector3 upMove = Vector3.up * speed * Time.deltaTime * Input.GetAxis("Vertical");
+            Vector3 rightMove = Vector3.right * speed * Time.deltaTime * moveHorizontal;
+            Vector3 upMove = Vector3.up * speed * Time.deltaTime * moveVertical;
             Vector3 heading = Vector3.Normalize(rightMove + upMove);
 
             Vector2 movement = new Vector2(rightMove.x + upMove.x, rightMove.y + upMove.y);
@@ -49,8 +50,6 @@ public class CharaPlayerController : PlayerController
         }
         else
         {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
             rb.AddForce(movement * speed);
         }

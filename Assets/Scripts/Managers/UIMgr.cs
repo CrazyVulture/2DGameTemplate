@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using JetBrains.Annotations;
 
 public class UIMgr : Singleton<UIMgr>
 {
@@ -49,14 +48,20 @@ public class UIMgr : Singleton<UIMgr>
 
     public void ShowGameOver()
     {
-        gameOverText.SetActive(true);
-        RestartBtn.SetActive(true);
-        QuitBtn.SetActive(true);
+        if (gameOverText && RestartBtn && QuitBtn)
+        {
+            gameOverText.SetActive(true);
+            RestartBtn.SetActive(true);
+            QuitBtn.SetActive(true);
+        }
     }
 
     public void StartGameUI()
     {
-        SplashImg.SetActive(false);
-        StartBtn.SetActive(false);
+        if (SplashImg && StartBtn)
+        {
+            SplashImg.SetActive(false);
+            StartBtn.SetActive(false);
+        }
     }
 }
